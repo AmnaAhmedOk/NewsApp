@@ -9,7 +9,7 @@
 import UIKit
 import SDWebImage
 
-class ViewController: UIViewController {
+class MainViewController: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var containerView: UIView!
@@ -76,7 +76,7 @@ class ViewController: UIViewController {
     
     
 }
-extension ViewController : UICollectionViewDelegate,UICollectionViewDataSource{
+extension MainViewController : UICollectionViewDelegate,UICollectionViewDataSource{
  
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         articles.count
@@ -93,13 +93,17 @@ extension ViewController : UICollectionViewDelegate,UICollectionViewDataSource{
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let currentArtical  = articles[indexPath.row]
+        let destinationVC = storyboard?.instantiateViewController(identifier: "detailsVC") as! DetailsViewController
+        destinationVC.artical = ArticalModel(author: (currentArtical["author"] as? String) ?? "No Author", publishDate: (currentArtical["publishedAt"] as? String)!, imageUrl: (currentArtical["urlToImage"] as? String)!, title: (currentArtical["title"] as? String) ?? "No Title", detials: (currentArtical["description"] as? String) ?? "No Author", url: (currentArtical["url"] as? String) ?? "No Title")
+        navigationController?.pushViewController(destinationVC, animated: true)
         print(indexPath.row)
     }
     
     
 }
 // customize cell height and weight
-extension ViewController:UICollectionViewDelegateFlowLayout{
+extension MainViewController:UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {

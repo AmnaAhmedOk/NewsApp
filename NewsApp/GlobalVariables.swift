@@ -7,3 +7,11 @@
 //
 
 import Foundation
+class  GlobalVariables {
+    static let shared = GlobalVariables()
+       private init() {}
+    var egyptArticales = [AnyObject]()
+    var appleArticales = [AnyObject]()
+    var sportArticales = [AnyObject]()
+    var bitcoinsArticales = [AnyObject]()
+}
